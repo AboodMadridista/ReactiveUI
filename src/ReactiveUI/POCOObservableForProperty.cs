@@ -27,9 +27,9 @@ namespace ReactiveUI
         {
             var type = sender.GetType();
             if (!hasWarned.ContainsKey(type)) {
-                this.Log().Warn(
-                    "{0} is a POCO type and won't send change notifications, WhenAny will only return a single value!",
-                    type.FullName);
+                var info = expression.GetMemberInfo();
+
+                this.Log().Warn($"{type.FullName} property {info.Name} is a POCO type and won't send change notifications, WhenAny will only return a single value!");
                 hasWarned[type] = true;
             }
 
